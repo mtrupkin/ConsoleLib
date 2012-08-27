@@ -8,6 +8,8 @@ namespace ConsoleLib
 
         public string Title;
 
+        protected Shell() { }
+
         public Shell(Display display) 
         {
             Display = display;

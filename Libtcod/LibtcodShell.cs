@@ -1,22 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using ConsoleLib;
+using libtcod;
 
 namespace Libtcod
 {
     class LibtcodShell : Shell
     {
-        LibtcodDisplay LibtcodDisplay;
-        public LibtcodShell(String title, int width, int height)
-            : this(new LibtcodDisplay(title, width, height))
-        {
+        protected string title;
+
+        public void SetTitle(string title) {
+            TCODConsole.setWindowTitle(title); 
         }
-        LibtcodShell(LibtcodDisplay display)
-            : base(display)
+
+        LibtcodDisplay LibtcodDisplay;
+
+        public LibtcodShell(String title, int width, int height)
         {
-            LibtcodDisplay = display;
+            TCODConsole.initRoot(width, height, title, false, TCODRendererType.SDL);
+            TCODConsole.root.setBackgroundColor(TCODColor.black);
+            TCODConsole.root.setForegroundColor(TCODColor.white);
+            TCODConsole.root.setKeyColor(TCODColor.red);
+            TCODConsole.root.clear();
+
+            TCODSystem.setFps(24);
+
+            LibtcodDisplay = new LibtcodDisplay(TCODConsole.root);
         }
     }
 }
